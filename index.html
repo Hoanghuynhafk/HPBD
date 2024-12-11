@@ -1,0 +1,58 @@
+document.querySelectorAll(".heart").forEach((item) => {
+    item.classList.add("animation");
+});
+setTimeout(function () {
+    intervalContent = setInterval(function () {
+        if (currentIndexLetter < charArrDateLetter.length) {
+            text__letter.textContent += charArrDateLetter[currentIndexLetter];
+            currentIndexLetter++;
+        } else {
+            clearInterval(intervalContent);
+        }
+    }, 50);
+}, 6000);
+
+$(".close").on("click", function () {
+    clearInterval(intervalContent);
+    document.querySelector(".title__letter").textContent = "";
+    text__letter.textContent = "";
+    currentIndexLetter = 0;
+    currentIndexTitle = 0;
+    document.querySelectorAll(".heart").forEach((item) => {
+        item.classList.remove("animation");
+    });
+    $(".box__letter").slideUp();
+    $(".letter__border").slideUp();
+});
+
+// Mobile adjustments for birthday 13/12/2002
+function mobile() {
+    const app = {
+        timeout: function (txt, dom) {
+            let currentIndex = 0;
+            let charArr = txt.split("");
+            intervalMobile = setInterval(function () {
+                if (currentIndex < charArr.length) {
+                    dom.textContent += charArr[currentIndex];
+                    currentIndex++;
+                } else {
+                    clearInterval(intervalMobile);
+                }
+            }, 200);
+        },
+    };
+    return app;
+}
+
+const fcMobile = mobile();
+if (window.innerWidth < 768) {
+    setTimeout(() => {
+        fcMobile.timeout("13", document.querySelector(".day")); // Day
+    }, 5000);
+    setTimeout(() => {
+        fcMobile.timeout("12", document.querySelector(".month")); // Month
+    }, 6000);
+    setTimeout(() => {
+        fcMobile.timeout("2002", document.querySelector(".year")); // Year
+    }, 7000);
+}
